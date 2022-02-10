@@ -21,7 +21,7 @@ authorsRouter.get('/',function(req,res){
 
 
 //router to render add author page
-authorsRouter.get('/addauthor',function(req,res){
+authorsRouter.get('api/addauthor',function(req,res){
     res.render('addauthor',{});
 
 });
@@ -30,7 +30,7 @@ authorsRouter.get('/addauthor',function(req,res){
 
 
 //router to add author
-authorsRouter.post('/add', function (req, res) {
+authorsRouter.post('api/add', function (req, res) {
 
     var item={
         title:req.body.title,
@@ -40,7 +40,7 @@ authorsRouter.post('/add', function (req, res) {
     console.log(item)  ;
     const author = new authordata(item);
     author.save();
-    res.redirect('/authors');
+    res.redirect('api/authors');
 
 })
 
@@ -48,7 +48,7 @@ authorsRouter.post('/add', function (req, res) {
 
 
 //router for single author
-authorsRouter.get('/:id',function(req,res){
+authorsRouter.get('api/:id',function(req,res){
     const id = req.params.id;
     authordata.findOne({ _id: id })
             .then(function (author) {
@@ -64,7 +64,7 @@ authorsRouter.get('/:id',function(req,res){
 
 
 //router to delete author
-authorsRouter.post('/delete', function (req, res) {
+authorsRouter.post('api/delete', function (req, res) {
 
     const id = req.body.id;  
 
@@ -79,7 +79,7 @@ authorsRouter.post('/delete', function (req, res) {
 
 
 //router to edit author
-authorsRouter.post('/edit', function (req, res) {
+authorsRouter.post('api/edit', function (req, res) {
 
     authordata.findById(req.body.id, function(err, data){
         if (err) {
@@ -95,7 +95,7 @@ authorsRouter.post('/edit', function (req, res) {
 
 
 //router to update author
-authorsRouter.post('/update', function (req, res) {
+authorsRouter.post('api/update', function (req, res) {
 
     authordata.findByIdAndUpdate(req.body.id, { $set: req.body }, function (err, data) {
         if (err) {
